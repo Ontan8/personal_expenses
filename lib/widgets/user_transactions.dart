@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './inputForm.dart';
+import 'input_form.dart';
 import './transactions_list.dart';
 import '../models/transaction.dart';
 
@@ -43,7 +43,7 @@ class _UserTransactionsState extends State<UserTransactions> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        InputForm(),
+        InputForm(_addTransactions),
         TransactionsList(userTransaction),
       ],
     );
