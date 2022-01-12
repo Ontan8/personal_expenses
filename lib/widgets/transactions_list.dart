@@ -3,31 +3,15 @@ import '../models/transaction.dart';
 import 'package:intl/intl.dart';
 
 //ignore_for_file: prefer_const_constructors
-class TransactionsList extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => TransactionsListState();
-}
 
-class TransactionsListState extends State<TransactionsList> {
-  final List<Transaction> userTransaction = [
-    Transaction(
-      id: '1',
-      title: 'Graphics Card',
-      amount: 470,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: '2',
-      title: 'Mexican Pasta Pizza',
-      amount: 252,
-      date: DateTime.now(),
-    )
-  ];
+class TransactionsList extends StatelessWidget {
+  final List<Transaction> transaction;
+  TransactionsList(this.transaction, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ...userTransaction.map((e) {
+        ...transaction.map((e) {
           return Card(
             child: Row(
               children: [

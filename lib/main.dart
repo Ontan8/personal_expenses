@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import './widgets/transactions_list.dart';
-import './widgets/inputForm.dart';
+import './widgets/user_transactions.dart';
 
 //ignore_for_file: prefer_const_constructors
 //ignore_for_file: use_key_in_widget_constructors
@@ -42,10 +41,7 @@ class HomePage extends StatelessWidget {
             elevation: 10,
             color: Colors.blue,
           ),
-          Card(
-            child: InputForm(),
-          ),
-          TransactionsList(),
+          UserTransactions(),
         ],
       ),
     );
