@@ -1,5 +1,4 @@
-//basically creating a data structure to store the transactions
-import 'package:flutter/foundation.dart';
+//basically creating a class to store the transactions
 
 class Transaction {
   final String id;
