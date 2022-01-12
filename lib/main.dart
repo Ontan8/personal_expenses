@@ -1,6 +1,5 @@
-import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import './widgets/transactions_list.dart';
 
 //ignore_for_file: prefer_const_constructors
 //ignore_for_file: use_key_in_widget_constructors
@@ -19,22 +18,6 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final List<Transaction> transactions = [
-    Transaction(
-      id: '1',
-      title: 'Graphics Card',
-      amount: 470,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: '2',
-      title: 'Mexican Pasta Pizza',
-      amount: 252,
-      date: DateTime.now(),
-    )
-  ];
-  // String? titleInput;
-  // String? amountInput;
   final textController = TextEditingController();
   final amountController = TextEditingController();
   @override
@@ -69,18 +52,12 @@ class HomePage extends StatelessWidget {
                     decoration: InputDecoration(
                       labelText: 'Title',
                     ),
-                    // onChanged: (String val) {
-                    //   titleInput = val;
-                    // },
                     controller: textController,
                   ),
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Amount',
                     ),
-                    // onChanged: (val) {
-                    //   amountInput = val;
-                    // },
                     controller: amountController,
                   ),
                   Container(
@@ -92,74 +69,12 @@ class HomePage extends StatelessWidget {
                           foregroundColor:
                               MaterialStateProperty.all(Colors.purple)),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
           ),
-          Column(
-            children: [
-              ...transactions.map((e) {
-                return Card(
-                  child: Row(
-                    children: [
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                        child: Text(
-                          '\$${e.amount}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 20,
-                              color: Colors.purple),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          border: Border.all(
-                              color: Colors.purple,
-                              width: 2,
-                              style: BorderStyle.solid),
-                        ),
-                        padding: EdgeInsets.all(8),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5,
-                              horizontal: 10,
-                            ),
-                            child: Text(
-                              e.title,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.normal),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              DateFormat.yMMMMd('en_US').format(e.date),
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5,
-                              horizontal: 10,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ],
-          ),
+          TransactionsList(),
         ],
       ),
     );
