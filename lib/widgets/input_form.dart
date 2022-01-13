@@ -29,15 +29,15 @@ class InputForm extends StatelessWidget {
             decoration: InputDecoration(
               labelText: 'Amount',
             ),
-            onChanged: (double val) {
-              amountVal = val;
+            onChanged: (val) {
+              amountVal = double.parse(val);
             },
             controller: amountController,
           ),
           Container(
             margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
             child: TextButton(
-              onPressed: funcc(textVal, amountVal),
+              onPressed: () => funcc(textVal, amountVal),
               child: Text('Add Transaction'),
               style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all(Colors.purple)),
