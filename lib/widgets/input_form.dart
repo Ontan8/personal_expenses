@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 //ignore_for_file: prefer_const_constructors
 class InputForm extends StatelessWidget {
-  String? textVal;
-  double? amountVal;
   final textController = TextEditingController();
   final amountController = TextEditingController();
   final Function funcc;
@@ -21,23 +19,18 @@ class InputForm extends StatelessWidget {
               labelText: 'Title',
             ),
             controller: textController,
-            onChanged: (val) {
-              textVal = val;
-            },
           ),
           TextField(
             decoration: InputDecoration(
               labelText: 'Amount',
             ),
-            onChanged: (val) {
-              amountVal = double.parse(val);
-            },
             controller: amountController,
           ),
           Container(
             margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
             child: TextButton(
-              onPressed: () => funcc(textVal, amountVal),
+              onPressed: () => funcc(
+                  textController.text, double.parse(amountController.text)),
               child: Text('Add Transaction'),
               style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all(Colors.purple)),
