@@ -37,6 +37,7 @@ class HomePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               width: double.infinity,
+              padding: EdgeInsets.all(10),
             ),
             elevation: 10,
             color: Colors.blue,
