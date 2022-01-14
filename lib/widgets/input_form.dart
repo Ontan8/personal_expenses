@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 
 //ignore_for_file: prefer_const_constructors
-class InputForm extends StatelessWidget {
-  final textController = TextEditingController();
-  final amountController = TextEditingController();
+class InputForm extends StatefulWidget {
   final Function funcc;
+  const InputForm(this.funcc, {Key? key}) : super(key: key);
+
+  @override
+  State<InputForm> createState() => _InputFormState();
+}
+
+class _InputFormState extends State<InputForm> {
+  final textController = TextEditingController();
+
+  final amountController = TextEditingController();
+
   void sendData() {
     if (textController.text.isEmpty ||
         double.parse(amountController.text) <= 0) {
       return;
     }
-    funcc(textController.text, double.parse(amountController.text));
+    widget.funcc(textController.text, double.parse(amountController.text));
+    Navigator.of(context).pop();
   }
 
-  InputForm(this.funcc, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
