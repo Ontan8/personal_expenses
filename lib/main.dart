@@ -1,5 +1,7 @@
+import 'package:expenses/widgets/input_form.dart';
 import 'package:flutter/material.dart';
-import './widgets/user_transactions.dart';
+import './models/transaction.dart';
+import './widgets/transactions_list.dart';
 
 //ignore_for_file: prefer_const_constructors
 //ignore_for_file: use_key_in_widget_constructors
@@ -17,17 +19,62 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final textController = TextEditingController();
   final amountController = TextEditingController();
+
+  final List<Transaction> userTransaction = [
+    Transaction(
+      id: '1',
+      title: 'Graphics Card',
+      amount: 470,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: '2',
+      title: 'Mexican Pasta Pizza',
+      amount: 252,
+      date: DateTime.now(),
+    )
+  ];
+
+  void _addTransactions(String title, double amount) {
+    final newTx = Transaction(
+      title: title,
+      amount: amount,
+      date: DateTime.now(),
+      id: DateTime.now().toString(),
+    );
+    setState(() {
+      userTransaction.add(newTx);
+    });
+  }
+
+  void _startAddTransactions(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return GestureDetector(
+            child: InputForm(_addTransactions),
+            onTap: () {},
+            behavior: HitTestBehavior.opaque,
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Expense Planner'),
-          actions: const [
+          actions: [
             IconButton(
-              onPressed: null,
+              onPressed: () => _startAddTransactions(context),
               icon: Icon(Icons.add),
             )
           ],
@@ -49,14 +96,14 @@ class HomePage extends StatelessWidget {
                 elevation: 10,
                 color: Colors.blue,
               ),
-              UserTransactions(),
+              TransactionsList(userTransaction),
             ],
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: () {},
+          onPressed: () => _startAddTransactions(context),
         ));
   }
 }
