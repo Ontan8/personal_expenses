@@ -13,9 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Expense Planner',
-      home: HomePage(),
-    );
+        title: 'Expense Planner',
+        home: HomePage(),
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+          accentColor: Colors.amber,
+        ));
   }
 }
 
@@ -86,12 +89,14 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     'Chart',
                     textAlign: TextAlign.center,
+                    style:
+                        TextStyle(color: Theme.of(context).primaryColorLight),
                   ),
                   width: double.infinity,
                   padding: EdgeInsets.all(10),
                 ),
                 elevation: 10,
-                color: Colors.blue,
+                color: Theme.of(context).primaryColor,
               ),
               TransactionsList(userTransaction),
             ],
