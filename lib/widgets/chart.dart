@@ -10,11 +10,11 @@ class Chart extends StatelessWidget {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(Duration(days: index));
       double totalSum = 0;
-      for (int i = 0; i < recentTransactions.length; i++) {
-        if (recentTransactions[i].date.day == weekDay.day &&
-            recentTransactions[i].date.month == weekDay.month &&
-            recentTransactions[i].date.year == weekDay.year) {
-          totalSum += recentTransactions[i].amount;
+      for (var i in recentTransactions) {
+        if (i.date.day == weekDay.day &&
+            i.date.month == weekDay.month &&
+            i.date.year == weekDay.year) {
+          totalSum += i.amount;
         }
       }
       return {'day': DateFormat.E(weekDay), 'amount': totalSum};
