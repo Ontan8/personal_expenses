@@ -25,9 +25,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final textController = TextEditingController();
-  final amountController = TextEditingController();
-
   final List<Transaction> userTransaction = [
     Transaction(
       id: '1',
