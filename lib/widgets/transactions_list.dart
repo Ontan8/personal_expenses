@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import '../models/transaction.dart';
 import 'package:intl/intl.dart';
 
@@ -12,7 +11,7 @@ class TransactionsList extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 450,
       child: transaction.isEmpty
           ? Column(
@@ -21,7 +20,7 @@ class TransactionsList extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                Container(
+                SizedBox(
                   height: 200,
                   child: Image.asset(
                     'assets/images/waiting.png',
