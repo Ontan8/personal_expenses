@@ -35,14 +35,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //main list which holds the transactions
   final List<Transaction> userTransaction = [];
 
+//getter to get the transactions of last 7 days for the chart widget
   List<Transaction> get _recentTransactions {
     return userTransaction.where((element) {
       return element.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
     }).toList();
   }
 
+//function that will be executed when the Add transactions button is pressed
   void _addTransactions(String title, double amount) {
     final newTx = Transaction(
       title: title,
@@ -55,6 +58,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+//function that will be executed when the floating action point button of appbar action icon is pressed, this brings up the sheet to add new transactions
   void _startAddTransactions(BuildContext ctx) {
     showModalBottomSheet(
         context: ctx,
