@@ -68,7 +68,7 @@ class _InputFormState extends State<InputForm> {
             children: [
               Text(selectedDate == null
                   ? 'No Date Chosen'
-                  : DateFormat.yMd().format(selectedDate!)),
+                  : 'Date Selected: ${DateFormat.yMd().format(selectedDate!)}'),
               TextButton(
                 onPressed: datePicker,
                 child: Text(
