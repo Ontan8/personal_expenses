@@ -12,7 +12,6 @@ class TransactionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 450,
       child: transaction.isEmpty
           ? Column(
               children: [
