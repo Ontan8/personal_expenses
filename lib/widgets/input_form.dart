@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 //ignore_for_file: prefer_const_constructors
 class InputForm extends StatefulWidget {
@@ -13,7 +14,7 @@ class _InputFormState extends State<InputForm> {
   final textController = TextEditingController();
 
   final amountController = TextEditingController();
-
+  DateTime? selectedDate;
   void sendData() {
     if (textController.text.isEmpty ||
         double.parse(amountController.text) <= 0) {
@@ -21,6 +22,22 @@ class _InputFormState extends State<InputForm> {
     }
     widget.funcc(textController.text, double.parse(amountController.text));
     Navigator.of(context).pop();
+  }
+
+  void datePicker() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2022),
+            lastDate: DateTime.now())
+        .then((value) {
+      if (value == null) {
+        return;
+      }
+      setState(() {
+        selectedDate = value;
+      });
+    });
   }
 
   @override
@@ -47,13 +64,30 @@ class _InputFormState extends State<InputForm> {
             keyboardType: TextInputType.number,
             onSubmitted: (_) => sendData(),
           ),
+          Row(
+            children: [
+              Text(selectedDate == null
+                  ? 'No Date Chosen'
+                  : DateFormat.yMd().format(selectedDate!)),
+              TextButton(
+                onPressed: datePicker,
+                child: Text(
+                  'Select a Date',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all(
+                        Theme.of(context).primaryColor)),
+              )
+            ],
+          ),
           Container(
             margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
-            child: TextButton(
+            child: ElevatedButton(
               onPressed: () => sendData(),
               child: Text('Add Transaction'),
               style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all(Colors.purple)),
+                  foregroundColor: MaterialStateProperty.all(Colors.white)),
             ),
           ),
         ],
