@@ -24,8 +24,10 @@ class MyApp extends StatelessWidget {
                 textTheme: ThemeData.light()
                     .textTheme
                     .copyWith(headline6: TextStyle(fontFamily: 'OpenSans'))),
-            textTheme:
-                TextTheme(headline6: TextStyle(fontFamily: 'OpenSans'))));
+            textTheme: TextTheme(
+              headline6: TextStyle(fontFamily: 'OpenSans'),
+            ),
+            errorColor: Colors.red));
   }
 }
 
@@ -46,11 +48,11 @@ class _HomePageState extends State<HomePage> {
   }
 
 //function that will be executed when the Add transactions button is pressed
-  void _addTransactions(String title, double amount) {
+  void _addTransactions(String title, double amount, DateTime chosenDate) {
     final newTx = Transaction(
       title: title,
       amount: amount,
-      date: DateTime.now(),
+      date: chosenDate,
       id: DateTime.now().toString(),
     );
     setState(() {
@@ -71,6 +73,14 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
+  void deleteTransaction(String id) {
+    setState(() {
+      userTransaction.removeWhere((element) {
+        return element.id == id;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +99,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Chart(_recentTransactions),
-              TransactionsList(userTransaction),
+              TransactionsList(userTransaction, deleteTransaction),
             ],
           ),
         ),

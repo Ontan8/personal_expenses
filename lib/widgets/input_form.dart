@@ -16,11 +16,16 @@ class _InputFormState extends State<InputForm> {
   final amountController = TextEditingController();
   DateTime? selectedDate;
   void sendData() {
-    if (textController.text.isEmpty ||
-        double.parse(amountController.text) <= 0) {
+    if (amountController.text.isEmpty) {
       return;
     }
-    widget.funcc(textController.text, double.parse(amountController.text));
+    if (textController.text.isEmpty ||
+        double.parse(amountController.text) <= 0 ||
+        selectedDate == null) {
+      return;
+    }
+    widget.funcc(
+        textController.text, double.parse(amountController.text), selectedDate);
     Navigator.of(context).pop();
   }
 
