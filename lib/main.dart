@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:expenses/widgets/input_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -153,9 +154,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => _startAddTransactions(context),
-        ));
+        floatingActionButton: Platform.isIOS
+            ? SizedBox()
+            : FloatingActionButton(
+                child: Icon(Icons.add),
+                onPressed: () => _startAddTransactions(context),
+              ));
   }
 }
