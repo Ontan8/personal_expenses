@@ -47,55 +47,61 @@ class _InputFormState extends State<InputForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Title',
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.all(10),
+        padding: EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Title',
+              ),
+              controller: textController,
+              keyboardType: TextInputType.text,
+              onSubmitted: (_) => sendData(),
             ),
-            controller: textController,
-            keyboardType: TextInputType.text,
-            onSubmitted: (_) => sendData(),
-          ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Amount',
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Amount',
+              ),
+              controller: amountController,
+              keyboardType: TextInputType.number,
+              onSubmitted: (_) => sendData(),
             ),
-            controller: amountController,
-            keyboardType: TextInputType.number,
-            onSubmitted: (_) => sendData(),
-          ),
-          Row(
-            children: [
-              Text(selectedDate == null
-                  ? 'No Date Chosen'
-                  : 'Date Selected: ${DateFormat.yMd().format(selectedDate!)}'),
-              TextButton(
-                onPressed: datePicker,
-                child: Text(
-                  'Select a Date',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+            Row(
+              children: [
+                Text(selectedDate == null
+                    ? 'No Date Chosen'
+                    : 'Date Selected: ${DateFormat.yMd().format(selectedDate!)}'),
+                TextButton(
+                  onPressed: datePicker,
+                  child: Text(
+                    'Select a Date',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor)),
+                )
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+              child: ElevatedButton(
+                onPressed: () => sendData(),
+                child: Text('Add Transaction'),
                 style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all(
-                        Theme.of(context).primaryColor)),
-              )
-            ],
-          ),
-          Container(
-            margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
-            child: ElevatedButton(
-              onPressed: () => sendData(),
-              child: Text('Add Transaction'),
-              style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all(Colors.white)),
+                    foregroundColor: MaterialStateProperty.all(Colors.white)),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
