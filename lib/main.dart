@@ -23,20 +23,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Expense Planner',
-        home: HomePage(),
-        theme: ThemeData(
-            primarySwatch: Colors.purple,
-            accentColor: Colors.amber,
-            fontFamily: 'Quicksand',
-            appBarTheme: AppBarTheme(
-                textTheme: ThemeData.light()
-                    .textTheme
-                    .copyWith(headline6: TextStyle(fontFamily: 'OpenSans'))),
-            textTheme: TextTheme(
-              headline6: TextStyle(fontFamily: 'OpenSans'),
-            ),
-            errorColor: Colors.red));
+      title: 'Expense Planner',
+      home: HomePage(),
+      theme: ThemeData(
+          primarySwatch: Colors.purple,
+          accentColor: Colors.amber,
+          fontFamily: 'Quicksand',
+          appBarTheme: AppBarTheme(
+              textTheme: ThemeData.light()
+                  .textTheme
+                  .copyWith(headline6: TextStyle(fontFamily: 'OpenSans'))),
+          textTheme: TextTheme(
+            headline6: TextStyle(fontFamily: 'OpenSans'),
+          ),
+          errorColor: Colors.red),
+    );
   }
 }
 
@@ -55,6 +56,45 @@ class _HomePageState extends State<HomePage> {
     return userTransaction.where((element) {
       return element.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
     }).toList();
+  }
+
+  List<Widget> _showLandscapeContent(
+      Widget transactionListWidget, AppBar appBar) {
+    return [
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Text('Show Chart'),
+        Switch(
+            value: showChart,
+            onChanged: (val) {
+              setState(() {
+                showChart = val;
+              });
+            })
+      ]),
+      showChart
+          ? SizedBox(
+              child: Chart(_recentTransactions),
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.7,
+            )
+          : transactionListWidget,
+    ];
+  }
+
+  List<Widget> _showPortraitContent(
+      Widget transactionListWidget, AppBar appBar) {
+    return [
+      SizedBox(
+        child: Chart(_recentTransactions),
+        height: (MediaQuery.of(context).size.height -
+                appBar.preferredSize.height -
+                MediaQuery.of(context).padding.top) *
+            0.3,
+      ),
+      transactionListWidget
+    ];
   }
 
 //function that will be executed when the Add transactions button is pressed
@@ -114,44 +154,14 @@ class _HomePageState extends State<HomePage> {
         appBar: appBar,
         body: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (isLandscape)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Show Chart'),
-                    Switch(
-                        value: showChart,
-                        onChanged: (val) {
-                          setState(() {
-                            showChart = val;
-                          });
-                        })
-                  ],
-                ),
-              if (!isLandscape)
-                SizedBox(
-                  child: Chart(_recentTransactions),
-                  height: (MediaQuery.of(context).size.height -
-                          appBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
-                      0.3,
-                ),
-              if (!isLandscape) transactionListWidget,
-              if (isLandscape)
-                showChart
-                    ? SizedBox(
-                        child: Chart(_recentTransactions),
-                        height: (MediaQuery.of(context).size.height -
-                                appBar.preferredSize.height -
-                                MediaQuery.of(context).padding.top) *
-                            0.7,
-                      )
-                    : transactionListWidget,
-            ],
-          ),
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (isLandscape)
+                  ..._showLandscapeContent(transactionListWidget, appBar),
+                if (!isLandscape)
+                  ..._showPortraitContent(transactionListWidget, appBar),
+              ]),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Platform.isIOS
