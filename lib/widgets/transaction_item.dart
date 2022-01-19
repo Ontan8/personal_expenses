@@ -21,7 +21,7 @@ class TransactionItem extends StatelessWidget {
         leading: CircleAvatar(
           radius: 30,
           child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: FittedBox(child: Text(transaction.amount.toString())),
           ),
         ),

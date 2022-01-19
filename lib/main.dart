@@ -26,17 +26,22 @@ class MyApp extends StatelessWidget {
       title: 'Expense Planner',
       home: HomePage(),
       theme: ThemeData(
-          primarySwatch: Colors.purple,
-          accentColor: Colors.amber,
           fontFamily: 'Quicksand',
           appBarTheme: AppBarTheme(
-              textTheme: ThemeData.light()
+              toolbarTextStyle: ThemeData.light()
                   .textTheme
-                  .copyWith(headline6: TextStyle(fontFamily: 'OpenSans'))),
+                  .copyWith(headline6: TextStyle(fontFamily: 'OpenSans'))
+                  .bodyText2,
+              titleTextStyle: ThemeData.light()
+                  .textTheme
+                  .copyWith(headline6: TextStyle(fontFamily: 'OpenSans'))
+                  .headline6),
           textTheme: TextTheme(
             headline6: TextStyle(fontFamily: 'OpenSans'),
           ),
-          errorColor: Colors.red),
+          errorColor: Colors.red,
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+              .copyWith(secondary: Colors.amber)),
     );
   }
 }
